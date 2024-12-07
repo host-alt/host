@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slideshow Creator with Customization</title>
+    <style>
+        /* Importing Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Bebas+Neue&family=Black+Ops+One&family=Creepster&family=Dancing+Script&family=Frijole&family=Indie+Flower&family=Lato:wght@400;700&family=Lobster&family=Montserrat:wght@400;700&family=Nosifer&family=Orbitron&family=Oswald:wght@400;700&family=Pacifico&family=Roboto+Mono:wght@400;700&family=Rakkas&family=Special+Elite&family=Times+New+Roman&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+39&family=UnifrakturMaguntia&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .settings {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .settings div {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            min-width: 250px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="file"], 
+        input[type="color"],
+        input[type="number"],
+        input[type="range"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        canvas {
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TikTok Slideshow Creator with Customization</h1>
+
+        <div class="settings">
+            <div>
+                <h3>Photo B Settings</h3>
+                <label for="fontB">Font</label>
+                <select id="fontB">
+                    <!-- Classic Fonts -->
+                    <option value="Arial">Arial</option>
+                    <option value="'Courier New', monospace">Courier New</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Impact">Impact</option>
+                    <option value="'Times New Roman', serif">Times New Roman</option>
+                    <!-- Scary Fonts -->
+                    <option value="'Creepster', cursive">Creepster</option>
+                    <option value="'Nosifer', cursive">Nosifer</option>
+                    <option value="'UnifrakturMaguntia', cursive">UnifrakturMaguntia</option>
+                    <option value="'Black Ops One', cursive">Black Ops One</option>
+                    <option value="'Frijole', cursive">Frijole</option>
+                    <!-- Distressed Telegraph Fonts -->
+                    <option value="'Special Elite', cursive">Special Elite</option>
+                    <option value="'Rakkas', cursive">Rakkas</option>
+                    <option value="'Roboto Mono', monospace">Roboto Mono</option>
+                    <option value="'Libre Barcode 39', cursive">Libre Barcode 39</option>
+                    <option value="'Orbitron', sans-serif">Orbitron</option>
+                    <!-- Artistic Fonts -->
+                    <option value="'Pacifico', cursive">Pacifico</option>
+                    <option value="'Lobster', cursive">Lobster</option>
+                    <option value="'Dancing Script', cursive">Dancing Script</option>
+                    <option value="'Bangers', cursive">Bangers</option>
+                    <option value="'Indie Flower', cursive">Indie Flower</option>
+                    <!-- Modern Fonts -->
+                    <option value="'Oswald', sans-serif">Oswald</option>
+                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                    <option value="'Lato', sans-serif">Lato</option>
+                    <option value="'Bebas Neue', cursive">Bebas Neue</option>
+                    <option value="'Anton', sans-serif">Anton</option>
+                </select>
+
+                <label for="sizeB">Font Size</label>
+                <input type="number" id="sizeB" min="10" max="100" value="30">
+
+                <label for="colorB">Text Color</label>
+                <input type="color" id="colorB" value="#FFFFFF">
+
+                <label for="strokeB">Enable Stroke</label>
+                <input type="checkbox" id="strokeB">
+
+                <label for="strokeColorB">Stroke Color</label>
+                <input type="color" id="strokeColorB" value="#000000">
+
+                <label for="strokeWidthB">Stroke Width</label>
+                <input type="number" id="strokeWidthB" min="1" max="10" value="2">
+
+                <label for="positionB">Text Position</label>
+                <select id="positionB">
+                    <option value="top">Top</option>
+                    <option value="center">Center</option>
+                    <option value="bottom">Bottom</option>
+                </select>
+
+                <label for="wordsPerLine">Words Per Line</label>
+                <input type="range" id="wordsPerLine" min="1" max="10" value="5">
+                <span id="wordsPerLineValue">5 words per line</span>
+            </div>
+        </div>
+
+        <label for="photoB">Upload Photo B</label>
+        <input type="file" id="photoB" accept="image/*">
+
+        <label for="factText">Enter the Fact (Photo B)</label>
+        <textarea id="factText" rows="4"></textarea>
+
+        <button id="generateButton">Generate Slideshow</button>
+
+        <canvas id="canvasB" width="500" height="500"></canvas>
+
+        <button id="downloadCanvasB">Download Image B</button>
+    </div>
+
+    <script>
+        const photoBInput = document.getElementById('photoB');
+        const generateButton = document.getElementById('generateButton');
+        const downloadCanvasB = document.getElementById('downloadCanvasB');
+        const canvasB = document.getElementById('canvasB');
+        const ctxB = canvasB.getContext('2d');
+        const wordsPerLineSlider = document.getElementById('wordsPerLine');
+        const wordsPerLineValue = document.getElementById('wordsPerLineValue');
+        const factTextInput = document.getElementById('factText');
+
+        let photoBFile = null;
+
+        const loadImage = (file, canvas, ctx) => {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+                    resolve();
+                };
+                img.onerror = reject;
+                img.src = URL.createObjectURL(file);
+            });
+        };
+
+        const drawText = (ctx, text, x, y, font, size, color, stroke, strokeColor, strokeWidth, wordsPerLine) => {
+            const words = text.split(' ');
+            let line = '';
+            const lineHeight = size * 1.5;
+            ctx.font = `${size}px ${font}`;
+            ctx.fillStyle = color;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            const lines = [];
+            words.forEach((word, index) => {
+                const testLine = line + word + ' ';
+                const isLineFull = wordsPerLine && (index % wordsPerLine === wordsPerLine - 1 || index === words.length - 1);
+
+                if (isLineFull) {
+                    lines.push(testLine.trim());
+                    line = '';
+                } else {
+                    line = testLine;
+                }
+            });
+
+            lines.forEach((line, index) => {
+                const textY = y + index * lineHeight;
+
+                if (stroke) {
+                    ctx.lineWidth = strokeWidth;
+                    ctx.strokeStyle = strokeColor;
+                    ctx.strokeText(line, x, textY);
+                }
+
+                ctx.fillText(line, x, textY);
+            });
+        };
+
+        wordsPerLineSlider.addEventListener('input', () => {
+            wordsPerLineValue.textContent = `${wordsPerLineSlider.value} words per line`;
+        });
+
+        generateButton.addEventListener('click', async () => {
+            if (!photoBFile) {
+                alert('Please upload an image!');
+                return;
+            }
+
+            const fontB = document.getElementById('fontB').value;
+            const sizeB = parseInt(document.getElementById('sizeB').value);
+            const colorB = document.getElementById('colorB').value;
+            const strokeB = document.getElementById('strokeB').checked;
+            const strokeColorB = document.getElementById('strokeColorB').value;
+            const strokeWidthB = parseInt(document.getElementById('strokeWidthB').value);
+            const positionB = document.getElementById('positionB').value;
+            const wordsPerLine = parseInt(wordsPerLineSlider.value);
+            const factText = factTextInput.value;
+
+            await loadImage(photoBFile, canvasB, ctxB);
+            const yB = positionB === 'top' 
+                ? sizeB + 10 
+                : positionB === 'center' 
+                ? (canvasB.height / 2) 
+                : canvasB.height - sizeB - 10;
+
+            drawText(ctxB, factText, canvasB.width / 2, yB, fontB, sizeB, colorB, strokeB, strokeColorB, strokeWidthB, wordsPerLine);
+        });
+
+        photoBInput.addEventListener('change', (e) => {
+            photoBFile = e.target.files[0];
+        });
+
+        const downloadCanvas = (canvas, filename) => {
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = filename;
+            link.click();
+        };
+
+        downloadCanvasB.addEventListener('click', () => downloadCanvas(canvasB, 'ImageB.png'));
+    </script>
+</body>
+</html>
